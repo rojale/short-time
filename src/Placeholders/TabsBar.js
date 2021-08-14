@@ -15,8 +15,14 @@ const TabsBar = () => (
     <div style={{ marginRight: 40 }}>
       <span style={{ color: "grey" }}>moments</span>
     </div>
-    <div style={{ marginRight: 40 }}>
-      <span style={{ color: "grey" }}>packs</span>
+    <div
+      style={{
+        marginRight: 40,
+        paddingBottom: 30,
+        borderBottom: "5px solid black",
+      }}
+    >
+      <span>packs</span>
     </div>
     <div style={{ marginRight: 40 }}>
       <span style={{ color: "grey" }}>showcases</span>

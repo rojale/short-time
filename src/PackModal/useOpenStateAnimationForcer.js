@@ -12,7 +12,7 @@ const useOpenStateAnimationForcer = () => {
     if (openState === CLOSING) {
       forceAnimation();
     }
-  }, [openState]);
+  }, [openState, forceAnimation]);
 
   return elementRef;
 };

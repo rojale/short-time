@@ -49,6 +49,7 @@ const ModalComponent = ({ pack, handleClose }) => {
           ref={closeButtonForcerRef}
           onClick={handleClose}
           className={ownStyles.closeButton}
+          style={{ cursor: "pointer" }}
         >
           x
         </button>

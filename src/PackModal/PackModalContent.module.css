@@ -1,5 +1,7 @@
 .PackModalContent {
   padding: 50px;
+  display: flex;
+  --pack-details-animation-time: 1000ms;
 }
 
 .closePackContainer {
@@ -13,4 +15,71 @@
 .packTitle {
   font-size: 30px;
   text-transform: uppercase;
+}
+
+.packDetails {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+}
+
+.packTextContainer {
+  padding: 0 40px;
+  transform: translatex(-100vw);
+}
+
+@keyframes packTitleAnim {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+}
+
+.packTitleAnim {
+  animation-name: packTitleAnim;
+  animation-duration: var(--pack-details-animation-time);
+  animation-fill-mode: forwards;
+}
+
+@keyframes packTextContainerAnim {
+  0% {
+    opacity: 0;
+    transform: translatex(-100vw);
+  }
+  70% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+    transform: translatex(0);
+  }
+}
+.packTextContainerAnim {
+  animation-name: packTextContainerAnim;
+  animation-duration: var(--pack-details-animation-time);
+  animation-fill-mode: forwards;
+}
+
+@keyframes packTextAnim {
+  0% {
+    transform: scaleY(1.5)
+
+  }
+  100% {
+    transform: scaleY(1)
+
+  }
+}
+
+.packTextAnim {
+  animation-name: packTextAnim;
+  animation-duration: var(--pack-details-animation-time);
+  animation-fill-mode: forwards;
+
 }
