@@ -1,27 +1,28 @@
-import {
-  useState,
-  useEffect,
-  useContext,
-  useCallback,
-  useReducer,
-} from "react";
+import { useEffect, useContext, useCallback, useReducer } from "react";
 import classNames from "classnames";
 import ClosedPack from "../Placeholders/ClosedPack";
 import ownStyles from "./PackModalContent.module.css";
 import OpenStateContext from "./OpenStateContext";
 import { CLOSING } from "./PackModal";
 import useAnimationForcer from "./useAnimationForcer";
-import useOpenStateAnimationForcer from "./useOpenStateAnimationForcer";
 
 export const INITIAL_MOUNT = "INITIAL_MOUNT";
 export const PACK_ANIMATION = "PACK_ANIMATION";
 export const BEFORE_OPEN = "BEFORE_OPEN";
+export const VERIFY_STARTED = "VERIFY_STARTED";
 export const VERIFYING = "VERIFYING";
 export const VERIFIED = "VERIFIED";
 export const ANIMATING_CLOSE = "ANIMATING_CLOSE";
 
 const PackModalContent = ({ pack }) => {
   const openState = useContext(OpenStateContext);
+
+  const {
+    elementRef: packDetailsRef,
+    forceAnimation: forcePackDetailsAnimation,
+  } = useAnimationForcer();
+  const { elementRef: packTextRef, forceAnimation: forcePackTextsAnimation } =
+    useAnimationForcer();
 
   const [mode, dispatchModeAction] = useReducer(modeReducer, INITIAL_MOUNT);
 
@@ -59,7 +60,7 @@ const PackModalContent = ({ pack }) => {
     if (openState === CLOSING) {
       setMode(ANIMATING_CLOSE);
     }
-  }, [openState]);
+  }, [openState, setMode]);
 
   return (
     <div className={ownStyles.PackModalContent}>
@@ -83,13 +84,17 @@ const PackModalContent = ({ pack }) => {
           // eyeballed spacer - could instead use something like grid
           style={{ height: 50 }}
         />
-        <div className={getPackDetailsClasses(mode)}>
+        <div ref={packDetailsRef} className={getPackDetailsClasses(mode)}>
           <p className={ownStyles.packTitle} style={{ marginBottom: 15 }}>
             This is a title
           </p>
           <p style={{ marginBottom: 30 }}># of Videos</p>
           <p style={{ marginBottom: 15 }}>Description</p>
-          <p className={getPackTextClasses(mode)} style={{ marginBottom: 30 }}>
+          <p
+            ref={packTextRef}
+            className={getPackTextClasses(mode)}
+            style={{ marginBottom: 30 }}
+          >
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
             ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
@@ -122,6 +127,16 @@ const PackModalContent = ({ pack }) => {
             <div />
           </div>
         </div>
+        <button
+          onClick={() => {
+            setMode(VERIFY_STARTED);
+            forcePackDetailsAnimation();
+            forcePackTextsAnimation();
+          }}
+          className={getOpenButtonClasses(mode)}
+        >
+          {[VERIFY_STARTED, VERIFYING].includes(mode) ? "X" : "OPEN PACK"}
+        </button>
       </div>
     </div>
   );
@@ -141,12 +156,25 @@ const getPackDetailsClasses = (mode) =>
   classNames(
     ownStyles.packTextContainer,
     ![PACK_ANIMATION, INITIAL_MOUNT].includes(mode) &&
-      ownStyles.packTextContainerAnim
+      ownStyles.packTextContainerAnim,
+    [VERIFY_STARTED, VERIFYING, VERIFIED].includes(mode) &&
+      ownStyles.reversePackInfo
   );
 
 const getPackTextClasses = (mode) =>
   classNames(
-    ![PACK_ANIMATION, INITIAL_MOUNT].includes(mode) && ownStyles.packTextAnim
+    ![PACK_ANIMATION, INITIAL_MOUNT].includes(mode) && ownStyles.packTextAnim,
+    [VERIFY_STARTED, VERIFYING, VERIFIED].includes(mode) &&
+      ownStyles.reversePackInfo
+  );
+
+const getOpenButtonClasses = (mode) =>
+  classNames(
+    ownStyles.openButton,
+    ![PACK_ANIMATION, INITIAL_MOUNT].includes(mode) &&
+      ownStyles.packTextContainerAnim,
+    [VERIFY_STARTED, VERIFYING].includes(mode) && ownStyles.openButtonActive,
+    [VERIFIED, ANIMATING_CLOSE].includes(mode) && ownStyles.openButtonHidden
   );
 
 const SET = "SET";

@@ -2,6 +2,7 @@
   padding: 50px;
   display: flex;
   --pack-details-animation-time: 1000ms;
+  --open-button-height: 60px;
 }
 
 .closePackContainer {
@@ -44,7 +45,7 @@
 .packTitleAnim {
   animation-name: packTitleAnim;
   animation-duration: var(--pack-details-animation-time);
-  animation-fill-mode: forwards;
+  animation-fill-mode: both;
 }
 
 @keyframes packTextContainerAnim {
@@ -63,23 +64,67 @@
 .packTextContainerAnim {
   animation-name: packTextContainerAnim;
   animation-duration: var(--pack-details-animation-time);
-  animation-fill-mode: forwards;
+  animation-fill-mode: both;
 }
 
 @keyframes packTextAnim {
   0% {
-    transform: scaleY(1.5)
-
+    transform: scaleY(1.5);
   }
   100% {
-    transform: scaleY(1)
-
+    transform: scaleY(1);
   }
 }
 
 .packTextAnim {
   animation-name: packTextAnim;
   animation-duration: var(--pack-details-animation-time);
-  animation-fill-mode: forwards;
+  animation-fill-mode: both;
+}
 
+.openButton {
+  height: var(--open-button-height);
+  border: 1px solid;
+  align-self: flex-start;
+  margin: 40px;
+  transform: translatex(-100vw);
+  background-color: lightgray;
+  cursor: pointer;
+  font-size: 20px;
+  border-radius: calc(var(--open-button-height) / 2);
+  width: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: width 100ms ease-in-out;
+}
+
+.openButton:hover {
+  background-color: white;
+}
+
+@keyframes openButtonActive {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}
+
+.openButtonActive {
+  background-color: white;
+  width: var(--open-button-height);
+  animation-name: openButtonActive;
+  animation-duration: 1000ms;
+  animation-delay: 1000ms;
+}
+
+.openButtonHidden {
+  display: none;
+}
+
+.reversePackInfo {
+  animation-delay: 200ms;
+  animation-direction: reverse;
 }

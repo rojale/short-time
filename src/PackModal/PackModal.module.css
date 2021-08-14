@@ -24,7 +24,7 @@
 .contentContainer {
   animation-name: contentContainerAnimation;
   animation-duration: var(--modal-animation-time);
-  animation-fill-mode: forwards;
+  animation-fill-mode: both;
   position: fixed;
   left: 0;
   right: 0;
@@ -44,7 +44,7 @@
 .closeButton {
   animation-name: closeButtonAnimation;
   animation-duration: var(--modal-animation-time);
-  animation-fill-mode: forwards;
+  animation-fill-mode: both;
   position: absolute;
   right: 30px;
   top: 30px;
