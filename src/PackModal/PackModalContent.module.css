@@ -1,0 +1,16 @@
+.PackModalContent {
+  padding: 50px;
+}
+
+.closePackContainer {
+  transition: transform 3000ms ease-in-out;
+}
+
+.packTitleContainer {
+  margin-bottom: 15px;
+}
+
+.packTitle {
+  font-size: 30px;
+  text-transform: uppercase;
+}

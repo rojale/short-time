@@ -16,7 +16,7 @@ const PackModal = ({ pack, closeModal }) => {
   const [openState, setOpenState] = useState(OPEN);
   const handleClose = useCallback(() => {
     setOpenState(CLOSING);
-    setTimeout(() => {
+    window.setTimeout(() => {
       closeModal();
       setOpenState(OPEN);
     }, 300);
@@ -44,7 +44,7 @@ const ModalComponent = ({ pack, handleClose }) => {
       )}
     >
       <div ref={overlayForcerRef} className={ownStyles.contentContainer}>
-        <PackModalContent pack={pack} />
+        {!!pack && <PackModalContent pack={pack} />}
         <button
           ref={closeButtonForcerRef}
           onClick={handleClose}

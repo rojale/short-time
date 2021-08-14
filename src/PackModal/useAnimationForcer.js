@@ -1,8 +1,8 @@
-import {useRef, useCallback} from 'react';
+import { useRef, useCallback } from "react";
 
-const useAnimationForcer = ()=>{
+const useAnimationForcer = () => {
   const elementRef = useRef(null);
-  const forceAnimation = useCallback(()=>{
+  const forceAnimation = useCallback(() => {
     if (elementRef.current) {
       elementRef.current.style.animation = "none";
       setTimeout(() => {
@@ -11,11 +11,9 @@ const useAnimationForcer = ()=>{
         }
       }, 0);
     }
+  }, [elementRef]);
 
-  }, [elementRef])
+  return { elementRef, forceAnimation };
+};
 
-  return {elementRef, forceAnimation}
-
-}
-
-export default useAnimationForcer
+export default useAnimationForcer;

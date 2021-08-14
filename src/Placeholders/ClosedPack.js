@@ -8,6 +8,7 @@ const ClosedPack = ({ onClick }) => {
         width: 300,
         border: "1px solid black",
         cursor: onClick ? "pointer" : null,
+        backgroundColor: "white",
       }}
     ></div>
   );
