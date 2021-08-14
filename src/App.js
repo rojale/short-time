@@ -1,23 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, createContext } from "react";
+import AppStyles from "./App.module.css";
+import Header from "./Placeholders/Header";
+import TabsBar from "./Placeholders/TabsBar";
+import PackWithTitle from "./Placeholders/PackWIthTitle";
+import PackModal from "./PackModal/PackModal";
+
+export const SetActivePackContext = new createContext(() => {});
 
 function App() {
+  const [activePack, setActivePack] = useState(null);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={AppStyles.App}>
+      <Header />
+      <TabsBar />
+      <SetActivePackContext.Provider value={setActivePack}>
+        <div className={AppStyles.packGrid}>
+          <PackWithTitle />
+          <PackWithTitle />
+          <PackWithTitle />
+        </div>
+      </SetActivePackContext.Provider>
+      <PackModal
+        pack={activePack}
+        closeModal={() => {
+          setActivePack(null);
+        }}
+      />
     </div>
   );
 }

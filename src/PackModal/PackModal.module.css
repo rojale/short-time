@@ -1,0 +1,61 @@
+@keyframes containerAnimation {
+  0% {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+
+  100% {
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+}
+
+.overlay {
+  --modal-animation-time: 500ms;
+}
+
+.container {
+  animation-name: containerAnimation;
+  animation-duration: var(--modal-animation-time);
+  animation-fill-mode: forwards;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+  background-color: white;
+}
+
+.reversedContainerAnimation {
+	animation-name: containerAnimation;
+  animation-duration: var(--modal-animation-time);
+  animation-fill-mode: forwards;
+
+}
+
+@keyframes closeButtonAnimation {
+  0% {
+    transform: translateX(50px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.closeButton {
+  animation-name: closeButtonAnimation;
+  animation-duration: var(--modal-animation-time);
+  animation-fill-mode: forwards;
+  position: absolute;
+  right: 30px;
+  top: 30px;
+  color: lightgray;
+  font-size: 48px;
+}
+
+.reversedCloseButtonAnimation {
+	animation-name: closeButtonAnimation;
+	animation-duration: var(--modal-animation-time);
+	animation-fill-mode: forwards;
+	animation-direction: reverse;
+
+}
