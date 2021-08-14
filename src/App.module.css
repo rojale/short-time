@@ -23,6 +23,10 @@
   padding: 0 var(--app-horizontal-padding);
 }
 
+.AppBlur {
+  filter: blur(3px);
+}
+
 .packGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

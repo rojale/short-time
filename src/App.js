@@ -1,4 +1,5 @@
 import { useState, createContext } from "react";
+import classNames from 'classnames';
 import AppStyles from "./App.module.css";
 import Header from "./Placeholders/Header";
 import TabsBar from "./Placeholders/TabsBar";
@@ -10,7 +11,7 @@ export const SetActivePackContext = new createContext(() => {});
 function App() {
   const [activePack, setActivePack] = useState(null);
   return (
-    <div className={AppStyles.App}>
+    <div className={classNames(AppStyles.App, activePack && AppStyles.AppBlur)}>
       <Header />
       <TabsBar />
       <SetActivePackContext.Provider value={setActivePack}>
