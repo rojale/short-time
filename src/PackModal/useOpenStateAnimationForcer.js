@@ -1,20 +1,15 @@
-import { useEffect, useContext, useRef } from "react";
+import { useEffect, useContext,} from "react";
 import OpenStateContext from "./OpenStateContext";
+import useAnimationForcer from "./useAnimationForcer";
+
 
 const useOpenStateAnimationForcer = () => {
-  const elementRef = useRef(null);
+  const {elementRef, forceAnimation} = useAnimationForcer;
 
   const openState = useContext(OpenStateContext);
 
   useEffect(() => {
-    if (elementRef.current) {
-      elementRef.current.style.animation = "none";
-      setTimeout(() => {
-        if (elementRef.current) {
-          elementRef.current.style.animation = "";
-        }
-      }, 0);
-    }
+    forceAnimation()
   }, [openState]);
 
   return elementRef;
