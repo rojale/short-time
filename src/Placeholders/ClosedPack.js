@@ -5,7 +5,7 @@ const ClosedPack = ({ onClick }) => {
     <div
       style={{
         height: "80vh",
-        width: 300,
+        width: 400,
         border: "1px solid black",
         cursor: onClick ? "pointer" : null,
         backgroundColor: "white",
