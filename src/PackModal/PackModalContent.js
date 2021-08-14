@@ -66,7 +66,7 @@ const PackModalContent = ({ pack }) => {
     <div className={ownStyles.PackModalContent}>
       <div
         onTransitionEnd={transitionMode}
-        className={ownStyles.closedPackContainer}
+        className={getClosedPackClasses(mode)}
         style={{ transform: packTranslation, transition: "transform 300ms" }}
       >
         <div className={getPackTitleClasses(mode)}>
@@ -128,6 +128,7 @@ const PackModalContent = ({ pack }) => {
           </div>
         </div>
         <button
+        onAnimationEnd={transitionMode}
           onClick={() => {
             setMode(VERIFY_STARTED);
             forcePackDetailsAnimation();
@@ -145,6 +146,8 @@ const PackModalContent = ({ pack }) => {
 export default PackModalContent;
 
 const createTranslateString = ({ x, y }) => `translate(${x}px,${y}px)`;
+
+const getClosedPackClasses = mode=>classNames(ownStyles.closedPackContainer, [VERIFYING, VERIFIED].includes(mode) && ownStyles.closedPackVerifying)
 
 const getPackTitleClasses = (mode) =>
   classNames(
@@ -185,11 +188,20 @@ const modeReducer = (currentMode = INITIAL_MOUNT, action) => {
       return action.newMode;
     }
     case TRANSITION_NEXT: {
-      if (currentMode === PACK_ANIMATION) {
+      switch(currentMode){
+        case PACK_ANIMATION:{
         return BEFORE_OPEN;
-      }
 
-      return currentMode;
+        }
+        case VERIFY_STARTED: {
+          return VERIFYING;
+
+        }
+        default:{
+          return currentMode;
+        }
+
+      }
     }
     default: {
       return currentMode;

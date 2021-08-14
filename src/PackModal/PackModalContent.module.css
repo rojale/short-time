@@ -2,6 +2,7 @@
   padding: 50px;
   display: flex;
   --pack-details-animation-time: 1000ms;
+  --verification-start-animation-time: 500ms;
   --open-button-height: 60px;
 }
 
@@ -108,7 +109,7 @@
     transform: translateY(0);
   }
   100% {
-    transform: translateY(100vh);
+    transform: translateY(50vh);
   }
 }
 
@@ -116,7 +117,7 @@
   background-color: white;
   width: var(--open-button-height);
   animation-name: openButtonActive;
-  animation-duration: 1000ms;
+  animation-duration: 500ms;
   animation-delay: 1000ms;
 }
 
@@ -127,4 +128,19 @@
 .reversePackInfo {
   animation-delay: 200ms;
   animation-direction: reverse;
+}
+
+@keyframes closedPackVerifying {
+  0%{
+    transform: translateX(0) scale(1,1)
+  }
+  100% {
+
+    transform: translateX(-70px) scale(0.75,0.75)
+  }
+}
+.closedPackVerifying {
+  animation-name: closedPackVerifying;
+  animation-duration:var(--verification-start-animation-time);
+  animation-fill-mode: both;
 }
