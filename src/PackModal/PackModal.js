@@ -1,39 +1,58 @@
-import { useState, useCallback, useRef} from "react";
+import { useState, useCallback, useContext } from "react";
 import classNames from "classnames";
 import Modal from "react-modal";
 import PackModalContent from "./PackModalContent";
 
 import ownStyles from "./PackModal.module.css";
+import OpenStateContext from "./OpenStateContext";
+import useOpenStateAnimationForcer from "./useOpenStateAnimationForcer";
 
 Modal.setAppElement("#root");
 
 const OPEN = "OPEN";
-const WILL_CLOSE = "WILL_CLOSE";
-const CLOSING = "CLOSING";
+export const CLOSING = "CLOSING";
 
 const PackModal = ({ pack, closeModal }) => {
-  const modalRef = useRef(null)
   const [openState, setOpenState] = useState(OPEN);
   const handleClose = useCallback(() => {
     setOpenState(CLOSING);
-    // setTimeout(() => {
-    //   closeModal();
-    //   setOpenState(OPEN);
-    // }, 300);
+    setTimeout(() => {
+      closeModal();
+      setOpenState(OPEN);
+    }, 300);
   }, [setOpenState]);
 
   return (
+    <OpenStateContext.Provider value={openState}>
+      <ModalComponent pack={pack} handleClose={handleClose} />
+    </OpenStateContext.Provider>
+  );
+};
+
+const ModalComponent = ({ pack, handleClose }) => {
+  const openState = useContext(OpenStateContext);
+  const closeButtonForcerRef = useOpenStateAnimationForcer();
+  const overlayForcerRef = useOpenStateAnimationForcer();
+  return (
     <Modal
-    ref={modalRef}
       isOpen={!!pack}
       onRequestClose={handleClose}
       className={ownStyles.container}
-      overlayClassName={ownStyles.overlay}
+      overlayClassName={classNames(
+        ownStyles.overlay,
+        openState === CLOSING && ownStyles.reverse
+      )}
     >
-      <PackModalContent />
-      <button onClick={handleClose} className={ownStyles.closeButton}>
-        x
-      </button>
+      <div ref={overlayForcerRef} className={ownStyles.contentContainer}>
+        <PackModalContent pack={pack} />
+        <button
+          ref={closeButtonForcerRef}
+          onClick={handleClose}
+          className={ownStyles.closeButton}
+        >
+          x
+        </button>
+      </div>
     </Modal>
   );
 };
