@@ -1,0 +1,5 @@
+@keyframes noAnim {
+}
+.noAnim.noAnim {
+  animation-name: noAnim;
+}

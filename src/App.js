@@ -1,6 +1,7 @@
 import { useState, createContext } from "react";
-import classNames from 'classnames';
+import classNames from "classnames";
 import AppStyles from "./App.module.css";
+import "./utils.css";
 import Header from "./Placeholders/Header";
 import TabsBar from "./Placeholders/TabsBar";
 import PackWithTitle from "./Placeholders/PackWIthTitle";

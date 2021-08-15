@@ -4,12 +4,9 @@ const useAnimationForcer = () => {
   const elementRef = useRef(null);
   const forceAnimation = useCallback(() => {
     if (elementRef.current) {
-      elementRef.current.style.animation = "none";
-      setTimeout(() => {
-        if (elementRef.current) {
-          elementRef.current.style.animation = "";
-        }
-      }, 0);
+      elementRef.current.classList.add("noAnim");
+      void elementRef.current.offsetWidth;
+      elementRef.current.classList.remove("noAnim");
     }
   }, [elementRef]);
 
